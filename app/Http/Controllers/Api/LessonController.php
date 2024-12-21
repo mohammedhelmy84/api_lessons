@@ -13,12 +13,22 @@ class LessonController extends Controller
     use GeneralTrait;
     public function index(){
     //    return  LessonResource::collection(Lesson::all());
-       return  Lesson::select('id','lesson_title_'.app()->getLocale())->get();
+    //    return  Lesson::select('id','lesson_title_'.app()->getLocale())->get();
+    $lessons = Lesson::select('id','lesson_title_'.app()->getLocale())->get();
+    return $this->returnSuccess('lessons',$lessons);
     }
 
     public function getbyid(Request $request){
         $lesson = Lesson::select()->find($request->id);
-        return response()->json($lesson);
+         if(!$lesson){
+            return $this->returnError('1','Not Found');
+         }
+        return $this->returnData('lesson',$lesson);
+    }
+
+    public function change_status(Request $request){
+      $lesson = Lesson::where('id',$request->id)->update(['active'=>$request->active]);
+      return $this->returnSuccess('0','Data Changed');
     }
 
     public function show(Lesson $lesson){
