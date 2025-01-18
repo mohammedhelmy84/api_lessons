@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 /* new comment */
-
+/* new comment 2 */
 Route::group(['middleware'=>['input_password','change_language']],function(){
     // Route::apiResource('/lessons',LessonController::class);
     Route::post('/lessons',[LessonController::class,'index']);
