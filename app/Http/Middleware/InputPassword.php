@@ -15,7 +15,7 @@ class InputPassword
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->password !==env('API_PASSWORD','123')){
+        if($request->api_password !==env('API_PASSWORD','123')){
          return response()->json(['message'=>'Password is wrong']);
         }
         return $next($request);

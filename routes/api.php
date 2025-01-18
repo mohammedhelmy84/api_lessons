@@ -26,10 +26,12 @@ Route::group(['middleware'=>['input_password','change_language']],function(){
     Route::post('lesson_by_id/',[LessonController::class,'getbyid']);
     Route::post('change_status/',[LessonController::class,'change_status']);
 
-    Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
-        Route::post('/admin_login',[AuthController::class,'login']);
+    Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['input_password','change_language','check_admin:admin-api']],function(){
+        Route::post('/login',[AuthController::class,'login']);
     });
 });
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
